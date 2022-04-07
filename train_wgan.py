@@ -21,20 +21,22 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 # custom utilities
-import dataUtils_3C
+import dataUtils
 # load gan models
 import gan
 reload(gan)
 from gan import Discriminator, Generator
 
 # make sure class ais reloaded everytime the cell is executed
-reload(dataUtils_3C)
-from dataUtils_3C import SeisData, plot_waves_3C
+reload(dataUtils)
+from dataUtils import SeisData, plot_waves_3C
 
-# -------- Input Parameters -------
+# ---------- Input Parameters -------
 config_d = {
-    'data_file': './downsamp_1x_sel.npy',
-    'attr_file': './wforms_table_sel.csv',
+    'data_file': '/scratch/mflorez/gmpw/train_dp/train_sm/downsamp_1x_sel.npy',
+    'attr_file': '/scratch/mflorez/gmpw/train_dp/train_sm/wforms_table_sel.csv',
+#    'data_file': './downsamp_1x_sel.npy',
+#    'attr_file': './wforms_table_sel.csv',
     'batch_size': 128,
     'noise_dim': 100,
     'epochs': 80,
@@ -62,6 +64,7 @@ config_d = {
     'save_every': 1,
 }
 
+# acreate a fol
 def init_gan_conf(conf_d):
     """
     Output configurations dictionary and ddcreate data directory
@@ -92,7 +95,8 @@ print(OUT_DIR, MODEL_DIR)
 print(config_d)
 
 #%%
-Ntot = 5000
+# total number of training samples
+Ntot = 102458
 frac = config_d['frac_train']
 Nbatch = config_d['batch_size']
 
@@ -134,8 +138,8 @@ print('shape ln_cns:', ln_cns.shape)
 # %%
 
 # generic tensor:
-#cuda = True if torch.cuda.is_available() else False
-cuda = False
+cuda = True if torch.cuda.is_available() else False
+#cuda = False
 Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 
 def noise(Nbatch, dim):
