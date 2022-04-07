@@ -33,10 +33,8 @@ from dataUtils import SeisData, plot_waves_3C
 
 # ---------- Input Parameters -------
 config_d = {
-    'data_file': '/scratch/mflorez/gmpw/train_dp/train_sm/downsamp_1x_sel.npy',
-    'attr_file': '/scratch/mflorez/gmpw/train_dp/train_sm/wforms_table_sel.csv',
-#    'data_file': './downsamp_1x_sel.npy',
-#    'attr_file': './wforms_table_sel.csv',
+    'data_file': './downsamp_1x_sel.npy',
+    'attr_file': './wforms_table_sel.csv',
     'batch_size': 128,
     'noise_dim': 100,
     'epochs': 80,
